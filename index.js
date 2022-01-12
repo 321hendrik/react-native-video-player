@@ -542,6 +542,12 @@ export default class VideoPlayer extends Component {
           onLoad={this.onLoad}
           source={video}
           resizeMode={resizeMode}
+          onFullscreenPlayerWillDismiss={() => {
+            // update playback state after dismissing fullscreen (workaround for https://github.com/react-native-video/react-native-video/issues/2279)
+            if (this.state.isPlaying) {
+              this.setState({isPlaying: false})
+            }
+          }}
         />
         <View
           style={[
